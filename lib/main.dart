@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
       title: Strings.APP_NAME,
       theme: new ThemeData(
         primarySwatch: Colors.blue,
+        backgroundColor: Colors.lightBlue
       ),
       home: new HomePage(title: Strings.APP_NAME),
     );
