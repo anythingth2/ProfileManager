@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:profile_manager/Data/DataReposity.dart';
 import 'package:profile_manager/Strings.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,6 +20,7 @@ class _HomePageState extends State<HomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+    
     return new Scaffold(
         appBar: new AppBar(
           // Here we take the value from the MyHomePage object that was created by
@@ -37,6 +39,7 @@ class ProfileBar extends StatefulWidget {
   @override
   _ProfileBarState createState() {
     // TODO: implement createState
+    
     return _ProfileBarState();
   }
 }

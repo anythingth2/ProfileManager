@@ -103,12 +103,19 @@ packages:
     source: hosted
     version: "0.13.3"
   http:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: http
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.11.3+16"
+  http_logging:
+    dependency: "direct main"
+    description:
+      name: http_logging
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   http_multi_server:
     dependency: transitive
     description:
