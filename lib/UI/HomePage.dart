@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:profile_manager/Data/DataReposity.dart';
 import 'package:profile_manager/Strings.dart';
-
+import 'package:profile_manager/UI/ProfilePage.dart';
+import 'package:profile_manager/ColorRes.dart';
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
 
@@ -20,7 +21,7 @@ class _HomePageState extends State<HomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    
+
     return new Scaffold(
         appBar: new AppBar(
           // Here we take the value from the MyHomePage object that was created by
@@ -28,9 +29,7 @@ class _HomePageState extends State<HomePage> {
           title: new Text(widget.title),
         ),
         body: Column(
-          children: <Widget>[ProfileBar(),
-           ProfileList()
-           ],
+          children: <Widget>[ProfileBar(), ProfileList()],
         ));
   }
 }
@@ -39,7 +38,7 @@ class ProfileBar extends StatefulWidget {
   @override
   _ProfileBarState createState() {
     // TODO: implement createState
-    
+
     return _ProfileBarState();
   }
 }
@@ -57,8 +56,11 @@ class _ProfileBarState extends State<ProfileBar> {
     // TODO: implement build
     return Container(
       constraints: BoxConstraints.expand(height: 100.0),
-      decoration: BoxDecoration(
-          color: Colors.cyan, boxShadow: [BoxShadow(blurRadius: 4.0,)]),
+      decoration: BoxDecoration(color: ColorRes.barColor, boxShadow: [
+        BoxShadow(
+          blurRadius: 4.0,
+        )
+      ]),
       child: Row(
         children: <Widget>[
           Padding(
@@ -93,14 +95,17 @@ class ProfileList extends StatefulWidget {
 }
 
 class _ProfileListState extends State<ProfileList> {
+  void redirectToProfilePage(BuildContext context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => ProfilePage(),));
+  }
+
   Widget _getItemUI(BuildContext context, int index) {
     return GestureDetector(
       onTap: () {
-        debugPrint('Hi');
-        Scaffold.of(context).showSnackBar(SnackBar(content: Text('Hi'),));
+        redirectToProfilePage(context);
       },
       child: Card(
-     
         margin: EdgeInsets.only(bottom: 16.0),
         elevation: 4.0,
         child: Padding(
@@ -133,9 +138,10 @@ class _ProfileListState extends State<ProfileList> {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        decoration: BoxDecoration(   color: Colors.lime[50],),
+        decoration: BoxDecoration(
+          color: ColorRes.backgroundColor,
+        ),
         child: ListView.builder(
-          
           itemBuilder: _getItemUI,
           itemCount: 10,
           scrollDirection: Axis.vertical,

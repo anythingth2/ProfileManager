@@ -3,7 +3,9 @@ class Strings{
   
   static const String PROFILEBAR_NAME = 'ชื่อ';
 }
-
+class MapApiKeys{
+  static const String key = 'AIzaSyBk-vfJ0QFHfvRkFsdHJOcPQSxYczof25A';
+}
 class ApiPath{
   static const String userInfo = 'userInfo/';
 }
