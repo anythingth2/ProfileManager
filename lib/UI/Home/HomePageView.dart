@@ -1,18 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:profile_manager/Data/DataReposity.dart';
+import 'package:profile_manager/Model/Employee.dart';
+import 'package:profile_manager/Model/User.dart';
 import 'package:profile_manager/Strings.dart';
 import 'package:profile_manager/UI/Profile/ProfilePageView.dart';
 import 'package:profile_manager/ColorRes.dart';
-class HomePage extends StatefulWidget {
-  HomePage({Key key, this.title}) : super(key: key);
+import 'package:profile_manager/UI/Home/HomePageInterface.dart';
+import 'package:profile_manager/UI/Home/HomePagePresenter.dart';
 
-  final String title;
+class HomePage extends StatefulWidget {
+  // HomePage({Key key, this.title}) : super(key: key);
+
+  HomePage() : super() {}
+
+  String title = 'Profile Manager';
 
   @override
   _HomePageState createState() => new _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> implements HomePageInterface {
+  HomePagePresenter presenter;
+
+  ProfileBar profileBar;
+  ProfileList profileList;
+
+  _HomePageState() : super() {
+    presenter = HomePagePresenter(this);
+    this.profileBar = ProfileBar();
+    this.profileList = ProfileList();
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -29,22 +47,42 @@ class _HomePageState extends State<HomePage> {
           title: new Text(widget.title),
         ),
         body: Column(
-          children: <Widget>[ProfileBar(), ProfileList()],
+          children: <Widget>[profileBar, profileList],
         ));
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    presenter.initState();
+  }
+
+  @override
+  void setProfileBar(String fullName) {
+    // TODO: implement setProfileBar
+    this.profileBar.name = fullName;
+  }
+
+  @override
+  void setProfileList(List<Employee> members) {
+    // TODO: implement setProfileList
+    this.profileList.members = members;
   }
 }
 
 class ProfileBar extends StatefulWidget {
+  String name;
+ 
   @override
   _ProfileBarState createState() {
     // TODO: implement createState
-
     return _ProfileBarState();
   }
 }
 
 class _ProfileBarState extends State<ProfileBar> {
-  String name = 'test';
+
   static const TextStyle regular = TextStyle(
     color: Colors.white,
     fontSize: 14.0,
@@ -78,7 +116,7 @@ class _ProfileBarState extends State<ProfileBar> {
                 child: const Text(Strings.PROFILEBAR_NAME, style: bold),
               ),
               Text(
-                name,
+                widget.name,
                 style: regular,
               )
             ],
@@ -90,6 +128,8 @@ class _ProfileBarState extends State<ProfileBar> {
 }
 
 class ProfileList extends StatefulWidget {
+  List<Employee> members;
+  
   @override
   _ProfileListState createState() => _ProfileListState();
 }
@@ -97,7 +137,10 @@ class ProfileList extends StatefulWidget {
 class _ProfileListState extends State<ProfileList> {
   void redirectToProfilePage(BuildContext context) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => ProfilePage(),));
+        context,
+        MaterialPageRoute(
+          builder: (context) => ProfilePage(),
+        ));
   }
 
   Widget _getItemUI(BuildContext context, int index) {
@@ -122,8 +165,8 @@ class _ProfileListState extends State<ProfileList> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text('Employee Name'),
-                        Text('Employee Position')
+                        Text('${widget.members[index].fullName}'),
+                        Text('${widget.members[index].position}')
                       ],
                     ),
                   ),
@@ -143,7 +186,7 @@ class _ProfileListState extends State<ProfileList> {
         ),
         child: ListView.builder(
           itemBuilder: _getItemUI,
-          itemCount: 10,
+          itemCount:widget.members.length,
           scrollDirection: Axis.vertical,
           padding: EdgeInsets.only(left: 32.0, right: 32.0, top: 16.0),
         ),

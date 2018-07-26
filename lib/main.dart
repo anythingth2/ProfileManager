@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:profile_manager/UI/Home/HomePageView.dart';
+import 'package:profile_manager/UI/SelectUser/SelectUserView.dart';
 import 'package:profile_manager/Strings.dart';
 import 'package:profile_manager/Data/RESTful/Service.dart';
 import 'package:profile_manager/Data/DataReposity.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       title: Strings.APP_NAME,
       theme: new ThemeData(
           primarySwatch: Colors.blue, ),
-      home: new HomePage(title: Strings.APP_NAME),
+      home: SelectUserPage('Profile Manager'),
     );
   }
 }

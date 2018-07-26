@@ -5,9 +5,11 @@ import 'package:profile_manager/Strings.dart';
 import 'package:http/http.dart' as http;
 
 class DataReposity {
+
+  static User user;
   static Future<User> fetchUserInfo(int id) async {
-    http.Response response = await Service.get(ApiPath.userInfo);
+    http.Response response = await Service.get('${ApiPath.userInfo}$id');
     
-    return User();
+    user = User.fromJson(response.body);
   }
 }
