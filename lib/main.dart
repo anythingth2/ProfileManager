@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:profile_manager/UI/HomePage.dart';
+import 'package:profile_manager/UI/Home/HomePageView.dart';
 import 'package:profile_manager/Strings.dart';
 import 'package:profile_manager/Data/RESTful/Service.dart';
 import 'package:profile_manager/Data/DataReposity.dart';

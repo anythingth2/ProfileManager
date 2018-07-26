@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:profile_manager/Data/DataReposity.dart';
 import 'package:profile_manager/Strings.dart';
-import 'package:profile_manager/UI/ProfilePage.dart';
+import 'package:profile_manager/UI/Profile/ProfilePageView.dart';
 import 'package:profile_manager/ColorRes.dart';
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
