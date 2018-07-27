@@ -10,7 +10,7 @@ class Service {
   static Map<String, String> header;
   static http.Client client = new http.Client();
 
-  static void setLogging(bool b, {LoggingLevel level = LoggingLevel.basic}) {
+  static void setLogging(bool b, {LoggingLevel level = LoggingLevel.body}) {
     if (b) {
       client = LoggingClient(http.Client(), level: level, logger: (msg) {
         debugPrint('HTTP: $msg');

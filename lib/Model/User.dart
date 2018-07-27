@@ -1,17 +1,20 @@
 import 'Employee.dart';
 import 'dart:convert';
+
 class User {
+  int id;
   String fullName;
   String position;
   List<Employee> members;
-
-  User.fromJson(String jsonString) {
-    Map<String, dynamic> userJson = json.decode(jsonString);
+  User();
+  User.fromJson(Map<String, dynamic> userJson) {
+    this.id = userJson['id'];
     this.fullName = userJson['fullName'];
     this.position = userJson['position'];
-    this.members = userJson['members']
-        .map<Employee>(
-            (employee) => Employee(employee['fullName'], employee['position']))
-        .toList();
+    if (userJson['members'] != null)
+      this.members = userJson['members']
+          .map<Employee>((employee) =>
+              Employee(employee['fullName'], employee['position']))
+          .toList();
   }
 }
