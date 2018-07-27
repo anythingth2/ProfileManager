@@ -8,4 +8,9 @@ class HomePagePresenter{
     _view.setProfileBar(DataReposity.user.fullName);
     _view.setProfileList(DataReposity.user.members);
   }
+
+  void onSelectEmployee(int index){
+   
+    _view.redirectToProfilePage(  DataReposity.user.members[index].id);
+  }
 }

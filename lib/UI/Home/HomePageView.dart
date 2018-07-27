@@ -20,6 +20,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> implements HomePageInterface {
+  BuildContext context;
   HomePagePresenter presenter;
 
   ProfileBar profileBar;
@@ -28,7 +29,7 @@ class _HomePageState extends State<HomePage> implements HomePageInterface {
   _HomePageState() : super() {
     presenter = HomePagePresenter(this);
     this.profileBar = ProfileBar();
-    this.profileList = ProfileList();
+    this.profileList = ProfileList(this);
   }
 
   @override
@@ -39,7 +40,7 @@ class _HomePageState extends State<HomePage> implements HomePageInterface {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-
+  this.context = context;
     return new Scaffold(
         appBar: new AppBar(
           // Here we take the value from the MyHomePage object that was created by
@@ -68,6 +69,19 @@ class _HomePageState extends State<HomePage> implements HomePageInterface {
   void setProfileList(List<Employee> members) {
     // TODO: implement setProfileList
     this.profileList.members = members;
+  }
+
+  void onSelectEmployee(int index){
+    presenter.onSelectEmployee(index);
+  }
+
+  void redirectToProfilePage(int employeeId) {
+    
+    Navigator.push(
+        this.context,
+        MaterialPageRoute(
+          builder: (context) => ProfilePage(employeeId),
+        ));
   }
 }
 
@@ -111,10 +125,10 @@ class _ProfileBarState extends State<ProfileBar> {
           ),
           Row(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(right: 4.0),
-                child: const Text(Strings.PROFILEBAR_NAME, style: bold),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(right: 4.0),
+              //   child: const Text(Strings.PROFILEBAR_NAME, style: bold),
+              // ),
               Text(
                 widget.name,
                 style: regular,
@@ -129,24 +143,20 @@ class _ProfileBarState extends State<ProfileBar> {
 
 class ProfileList extends StatefulWidget {
   List<Employee> members;
-  
+  _HomePageState parentState;
+
+  ProfileList(this.parentState);
   @override
   _ProfileListState createState() => _ProfileListState();
 }
 
 class _ProfileListState extends State<ProfileList> {
-  void redirectToProfilePage(BuildContext context) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ProfilePage(),
-        ));
-  }
+  
 
   Widget _getItemUI(BuildContext context, int index) {
     return GestureDetector(
       onTap: () {
-        redirectToProfilePage(context);
+        widget.parentState.onSelectEmployee(index);
       },
       child: Card(
         margin: EdgeInsets.only(bottom: 16.0),

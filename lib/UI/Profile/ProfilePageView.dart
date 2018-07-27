@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'package:profile_manager/Model/Employee.dart';
 
+import 'ProfilePageInterface.dart';
+import 'ProfilePagePresenter.dart';
 import 'package:flutter/material.dart';
 import 'package:profile_manager/ColorRes.dart';
 import 'package:map_view/map_view.dart';
@@ -7,12 +10,30 @@ import 'package:profile_manager/Strings.dart';
 import 'package:location/location.dart' as location;
 
 class ProfilePage extends StatefulWidget {
+  int employeeId;
+
+  ProfilePage(this.employeeId) : super() {}
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  _ProfilePageState createState() => _ProfilePageState(employeeId);
 }
 
-class _ProfilePageState extends State<ProfilePage> {
-  
+class _ProfilePageState extends State<ProfilePage>
+    implements ProfilePageInterface {
+  ProfilePagePresenter presenter;
+  String employeeName='emp';
+
+  _ProfilePageState(int employeeId) : super() {
+
+    this.presenter = ProfilePagePresenter(this,employeeId);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    presenter.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +50,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Padding(
                     padding: const EdgeInsets.only(top: 16.0),
                     child: Text(
-                      'Employee Name',
+                      employeeName,
                       style: TextStyle(fontSize: 16.0),
                     ),
                   ),
@@ -39,6 +60,14 @@ class _ProfilePageState extends State<ProfilePage> {
             ],
           ),
         ));
+  }
+
+  @override
+  void setEmployee(Employee employee) {
+    // TODO: implement setEmployee
+    setState(() {
+      this.employeeName = employee.fullName;
+    });
   }
 }
 

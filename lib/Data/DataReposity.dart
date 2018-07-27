@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:profile_manager/Model/User.dart';
+import 'package:profile_manager/Model/Employee.dart';
 import 'package:profile_manager/Data/RESTful/Service.dart';
 import 'package:profile_manager/Strings.dart';
 import 'dart:convert';
@@ -17,8 +18,15 @@ class DataReposity {
   static Future<List<User>> fetchAllUser() async {
     http.Response response = await Service.get('${ApiPath.allUser}');
     List usersJson = json.decode(response.body);
-    debugPrint('debug : ${usersJson.toString()}');
-    allUser = usersJson.map<User>((userJson) => User.fromJson(userJson)).toList();
+    allUser =
+        usersJson.map<User>((userJson) => User.fromJson(userJson)).toList();
     return allUser;
+  }
+
+  static Future<Employee> fetchEmployee(int id) async {
+    http.Response response = await Service.get('${ApiPath.employee}$id');
+    Map<String, dynamic> employeeJson = json.decode(response.body);
+    Employee employee = Employee.fromJson(employeeJson);
+    return employee;
   }
 }

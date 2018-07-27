@@ -14,7 +14,7 @@ class User {
     if (userJson['members'] != null)
       this.members = userJson['members']
           .map<Employee>((employee) =>
-              Employee(employee['fullName'], employee['position']))
+              Employee.fromJson(employee))
           .toList();
   }
 }
